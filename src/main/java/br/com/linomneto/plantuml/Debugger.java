@@ -79,8 +79,6 @@ public class Debugger {
     private static final String PLANT_UML_SERVER = "https://www.plantuml.com/plantuml/svg/~1";
 
     public String getLink() {
-        System.out.println(this.source);
-
         String encodedCode = encodePlantUML(this.source);
         String imageUrl = PLANT_UML_SERVER + encodedCode;
         return imageUrl;
