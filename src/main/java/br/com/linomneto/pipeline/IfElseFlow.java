@@ -2,15 +2,21 @@ package br.com.linomneto.pipeline;
 
 import br.com.linomneto.plantuml.Debugger;
 
-public abstract class IfFlow<T> extends Flow<T> {
+public abstract class IfElseFlow<T> extends Flow<T> {
 
     Flow<T> trueFlow;
     Flow<T> falseFlow;
 
-    public IfFlow(String label, Flow<T> trueFlow, Flow<T> falseFlow) {
+    public IfElseFlow(String label, Flow<T> trueFlow, Flow<T> falseFlow) {
         super(label);
         this.trueFlow = trueFlow;
         this.falseFlow = falseFlow;
+    }
+
+    public IfElseFlow(String label, Flow<T> trueFlow) {
+        super(label);
+        this.trueFlow = trueFlow;
+        this.falseFlow = null;
     }
 
     @Override
@@ -20,7 +26,7 @@ public abstract class IfFlow<T> extends Flow<T> {
 
         if (conditionResult)
             this.trueFlow.run(debugger, token);
-        else
+        else if (this.falseFlow != null)
             this.falseFlow.run(debugger, token);
 
         debugger.endCondition(conditionResult);
